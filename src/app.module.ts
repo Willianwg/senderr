@@ -14,5 +14,3 @@ import { Nodemailer } from './nodemailer/mailer.module';
 })
 
 export class AppModule {}
-
-console.log(process.env.MAIL_HOST);

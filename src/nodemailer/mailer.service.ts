@@ -16,8 +16,8 @@ export class NodemailerService {
         })
 
         const info = await transport.sendMail({
-            from: "Willian Guedes",
-            to: "willian.wg70@gmail.com",
+            from: "devguedes844@gmail.com",
+            to: process.env.MAIL_TO,
             subject: "Testing nodemailer",
             html: `
             <img style="width:100vw; height:300;" src="https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?w=287&h=180&c=7&r=0&o=5&pid=1.7" />
