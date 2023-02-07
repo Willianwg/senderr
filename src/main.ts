@@ -9,6 +9,8 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     strategy: kafka
   })
+
+  await app.startAllMicroservices();
   await app.listen(process.env.port || 3000);
 }
 bootstrap();

@@ -6,15 +6,14 @@ export class KafkaService extends ServerKafka implements OnModuleDestroy {
     constructor() {
         super({
             client: {
-                brokers: ["https://well-jackal-12076-us1-rest-kafka.upstash.io"],
-                clientId: "emails",
+                brokers: [process.env.KAFKA_BROKER],
                 sasl: {
-                    mechanism: "scram-sha-256",
-                    username: "d2VsbC1qYWNrYWwtMTIwNzYkpWRnHjZCNxM6gUtcad8DfDmjEQ9ikj6wBvYm7ag",
-                    password: "fa68344a902b41d98993191282c1857a"
+                  mechanism: 'scram-sha-256',
+                  username: process.env.KAFKA_USERNAME,
+                  password: process.env.KAFKA_PASSWORD,
                 },
                 ssl: true,
-            }
+              }
         })
     }
     async onModuleDestroy() {

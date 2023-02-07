@@ -1,22 +1,28 @@
 import { Injectable } from "@nestjs/common";
 import * as mailer from "nodemailer";
 import { } from "@nestjs/config";
+import { EmailPayload } from "src/messaging/kafka/payload/email";
 
 @Injectable()
 export class NodemailerService {
-    async hi() {
+    private transport: mailer.Transporter;
+    private from = "Guedes Dev <devguedes844@gmail.com>";
 
-        const transport = mailer.createTransport({
+    constructor(){
+        this.transport = mailer.createTransport({
             host: process.env.MAIL_HOST,
             port: Number(process.env.MAIL_PORT),
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS,
             }
-        })
+        });
 
-        const info = await transport.sendMail({
-            from: "devguedes844@gmail.com",
+    }
+    async hi() {
+
+        await this.transport.sendMail({
+            from: this.from,
             to: process.env.MAIL_TO,
             subject: "Testing nodemailer",
             html: `
@@ -25,7 +31,18 @@ export class NodemailerService {
             `
         })
 
-        console.log("Done!");
+        console.log("Done!\n");
         return "sent";
+    }
+
+    async sendEmail(content: EmailPayload){
+        const { to, subject, message } = content;
+
+        await this.transport.sendMail({
+            from: this.from,
+            to,
+            subject,
+            html: message,
+        })
     }
 }
