@@ -8,6 +8,6 @@ export class NodemailerController{
     
     @Get()
     async hi(){
-        return this.nodemailer.hi();
+        return await this.nodemailer.hi();
     }
 }
